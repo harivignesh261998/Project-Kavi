@@ -5,7 +5,7 @@ const Register = require('../modules/register');
 //get register data from the db
 router.get('/register', function(req,res,next){
     Register.find().then(documents => {
-        res.status(201).json({
+        res.status(200).json({
             message: 'Posts fetched successfully',
             register: documents
         });
@@ -46,10 +46,10 @@ router.put('/register/:id', function(req,res,next){
 
 //delete a register from the db
 router.delete('/register/:id', function(req,res,next){
-    Register.deleteOne({_id: req.params.id}.then(result => {
+    Register.deleteOne({_id: req.params.id}).then(result => {
         console.log(result);
         res.status(200).json({message: 'Registration DELETED'});
-    }));
+    });
 });
 
 module.exports = router;

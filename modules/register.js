@@ -4,21 +4,21 @@ const Schema = mongoose.Schema;
 
 //create Register Schema & Models
 const RegisterSchema = new Schema({
-    name: {
+    first_name: {
         type: String,
-        required: [true,'name fiels is required']
+        required: [true,'First Name is required']
     },
-    password: {
+    last_name: {
         type: String,
-        required: [true, 'password is required']
+        required: [true, 'Last Name is required']
     },
     mailId: {
         type: String,
         required: [true, 'mailID is required']
     },
-    contact: {
+    password: {
         type: Number,
-        required: [true, 'Mobile number is required']
+        required: [true, 'Password is required']
     }
 })
 

@@ -17,7 +17,7 @@ const RegisterSchema = new Schema({
         required: [true, 'mailID is required']
     },
     password: {
-        type: Number,
+        type: String,
         required: [true, 'Password is required']
     }
 })

@@ -1,6 +1,6 @@
 const express = require('express');
 const routerClocksCal = express.Router();
-const ClocksCal = require('../modules/questionsClocksCal');
+const ClocksCal = require('../models/questionsClocksCal');
 
 //get questions from the DB
 routerClocksCal.get('/questionsClocksCal', function(req,res,next){

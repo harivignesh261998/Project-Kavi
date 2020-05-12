@@ -1,6 +1,6 @@
 const express = require('express');
 const routerAgesPart = express.Router();
-const AgesPart = require('../modules/questionsAgesPart');
+const AgesPart = require('../models/questionsAgesPart');
 
 //get questions from the DB
 routerAgesPart.get('/questionsAgesPart', function(req,res,next){

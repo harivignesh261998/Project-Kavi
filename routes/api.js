@@ -1,42 +1,73 @@
 const express = require('express');
 const router = express.Router();
-const Register = require('../modules/register');
+const Register = require('../models/register');
+const bcrypt = require('bcrypt');
+
+
 
 //get register data from the db
 router.get('/register', function(req,res,next){
-    Register.find().then(documents => {
-        res.status(200).json({
-            message: 'Posts fetched successfully',
-            register: documents
-        });
-        console.log(documents);
+    Register.find().then((documents) => {
+        res.status(200).json({documents});
+        console.log('Registrations fetched successfully');
     });
 });
 
 //add a new register to the db
 
 /*
-app.post("/modules/register",function(req,res){
+router.post("/register",function(req,res,next){
     const register = new Register({
-        name: req.body.name,
-        password: req.body.password,
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
         mailId: req.body.mailId,
-        contact: req.body.contact
+        password: req.body.password
     });
     register.save();
     res.status(201).json({
-        message: "Post added successfully"
+        message: "User added successfully"
+    });
+});
+*/
+
+/*
+router.post('/register', function(req,res,next){
+    Register.create(req.body).then(function(register){
+        res.send(register);
+        console.log(register);
     });
 });
 */
 
 
-router.post('/register', function(req,res,next){
-    Register.create(req.body).then(function(register){
-        res.send(register);
-    });
+router.post('/register', async(req,res,next) => {
+    try{
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            const register = new Register({
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                mailId: req.body.mailId,
+                password: hashedPassword
+            });
+       register.save(function(err,result){
+           if(err){
+               res.status(201).json({
+                   message: "E-Mail ID already exists. Try again with a different E-Mail ID"
+               })
+           }
+           else {
+            res.status(201).json({
+                message: "Registration successful"
+                 });
+            console.log(register);
+           }
+       });
+    } catch{
+        res.status(201).json({
+            message: "Registration Failed"
+        });
+    }
 });
-
 
 
 //update a register in the db
@@ -51,5 +82,6 @@ router.delete('/register/:id', function(req,res,next){
         res.status(200).json({message: 'Registration DELETED'});
     });
 });
+
 
 module.exports = router;

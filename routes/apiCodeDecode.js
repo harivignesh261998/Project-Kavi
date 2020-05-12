@@ -1,6 +1,6 @@
 const express = require('express');
 const routerCodeDecode = express.Router();
-const CodeDecode = require('../modules/questionsCodeDecode');
+const CodeDecode = require('../models/questionsCodeDecode');
 
 //get questions from the DB
 routerCodeDecode.get('/questionsCodeDecode', function(req,res,next){

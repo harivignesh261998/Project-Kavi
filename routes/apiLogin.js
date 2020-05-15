@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 
 //login post request
-routerLogin.get('/login', async (req,res,next) => {
+routerLogin.post('/login', async (req,res,next) => {
     Register.findOne({mailId: req.body.mailId}, function(err, userData){
         try{
             if(userData === null)

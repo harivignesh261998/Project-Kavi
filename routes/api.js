@@ -51,7 +51,8 @@ router.post('/register', async(req,res,next) => {
             });
        register.save(function(err,result){
            if(err){
-               res.status(201).json({
+               console.log(err);
+               res.status(409).json({
                    message: "E-Mail ID already exists. Try again with a different E-Mail ID"
                })
            }
@@ -63,7 +64,7 @@ router.post('/register', async(req,res,next) => {
            }
        });
     } catch{
-        res.status(201).json({
+        res.status(500).json({
             message: "Registration Failed"
         });
     }

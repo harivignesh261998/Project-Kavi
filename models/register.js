@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+//const uniqueValidator = require("mongoose-unique-validator")
 
 //create Register Schema & Models
 const RegisterSchema = new Schema({
@@ -23,7 +23,7 @@ const RegisterSchema = new Schema({
     }
 })
 
+//RegisterSchema.plugin(uniqueValidator);
 
 const Register = mongoose.model('register',RegisterSchema);
-
 module.exports = Register; 

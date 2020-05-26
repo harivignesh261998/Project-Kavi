@@ -1,6 +1,6 @@
 const express = require('express');
 const routerLogin = express.Router();
-const Register = require('../models/register');
+const Student = require('../models/student');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 //login post request
 routerLogin.post('/login', async (req,res,next) => {
-    Register.findOne({mailId: req.body.mailId}, function(err, userData){
+    Student.findOne({mailId: req.body.mailId}, function(err, userData){
         try{
             if(userData === null)
             {
@@ -21,9 +21,19 @@ routerLogin.post('/login', async (req,res,next) => {
                 try {
                     if ( bcrypt.compareSync(req.body.password, userData.password)) {
                         const token = jwt.sign(
-                            {mailId:userData.mailId, userId: userData._id}, 
+                            {mailId: userData.mailId, userId: userData._id},    
                             'secrete_this_should_be_longer', 
                             {expiresIn: '1h'})
+                        res.json({
+                            studentId: userData._id,
+                            firstName: userData.firstName,
+                            lastName: userData.lastName,
+                            mailId: userData.mailId,
+                            collegeId: userData.collegeId,
+                            aTest: userData.aTest,
+                            cTest: userData.cTest
+                        });   
+                        console.log(userData);
                         return res.status(200).json({ 
                             message: "LOGIN SUCCESSFUL",
                             token: token,

@@ -21,12 +21,14 @@ mongoose.Promise = global.Promise;
 app.use(bodyParser.json());
 
 //initialize routes
-app.use('/api',require('./routes/api'));
+app.use('/apiRegister',require('./routes/apiRegister'));
 app.use('/apiLogin',require('./routes/apiLogin'));
 app.use('/apiAgesPart',require('./routes/apiAgesPart'));
 app.use('/apiClocksCal',require('./routes/apiClocksCal'));
 app.use('/apiCodeDecode',require('./routes/apiCodeDecode'));
 app.use('/apiDirection',require('./routes/apiDirection'));
+app.use('/apiTestUpdate',require('./routes/apiTestUpdate'));
+app.use('/apiPractice', require('./routes/apiPractice'));
 
 //listen for request
 app.listen(process.env.port||4000,function(){

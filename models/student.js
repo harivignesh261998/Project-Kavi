@@ -1,14 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//create Student Schema & Models
+//create Atest Schema & Models
 const ATestSchema = new Schema({
-    testId: {type: String, default: ""},
+    testId: {type: mongoose.Schema.Types.ObjectId, ref: 'ATest', default: ""},
     testName: {type: String, default: ""},
     score: {type: Number, default: 0},
     attempt: {type: Boolean, default: false},
     timeTaken: {type: Number, default: 0}
 })
+
+//create CTest Schema & Models
+const CTestSchema = new Schema({
+    testId: {type: mongoose.Schema.Types.ObjectId, ref: 'CTest', default: ""},
+    testName: {type: String, default: ""},
+    score: {type: Number, default: 0},
+    attempt: {type: Boolean, default: false},
+    timeTaken: {type: Number, default: 0}
+})
+
+//create Student Schema & Models
 const StudentSchema = new Schema({
     firstName: {
         type: String,
@@ -27,20 +38,11 @@ const StudentSchema = new Schema({
         type: String,
         required: [true, 'Password is required']
     },
-    collegeId: {
-        type: Number
-    },
-    practicedQuestions: [String],
-    aTest:{ 
-        type: [ATestSchema]
-    },
-    cTest: [{
-        testId: {type: String, default: ""},
-        testName: {type: String, default: ""},
-        score: {type: Number, default: 0},
-        attempt: {type: Boolean, default: false},
-        timeTaken: {type: Number, default: 0}
-    }]
+    collegeId: { type: mongoose.Schema.Types.ObjectId, ref: 'College' },
+    collegeName:{ type: String},
+    practicedQuestions: [{type: mongoose.Schema.Types.ObjectId, ref: 'Practice'}],
+    aTest:[{ type: ATestSchema }],
+    cTest: [{ type: CTestSchema }]
 })
 
 

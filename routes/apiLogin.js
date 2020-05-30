@@ -23,8 +23,12 @@ routerLogin.post('/login', async (req,res,next) => {
                         const token = jwt.sign(
                             {mailId: userData.mailId, userId: userData._id},    
                             'secrete_this_should_be_longer', 
-                            {expiresIn: '1h'})
-                        res.json({
+                            {expiresIn: '1h'})  
+                        console.log(userData);
+                        return res.status(200).json({ 
+                            message: "LOGIN SUCCESSFUL",
+                            token: token,
+                            expiresIn: 3600,
                             studentId: userData._id,
                             firstName: userData.firstName,
                             lastName: userData.lastName,
@@ -32,12 +36,6 @@ routerLogin.post('/login', async (req,res,next) => {
                             collegeId: userData.collegeId,
                             aTest: userData.aTest,
                             cTest: userData.cTest
-                        });   
-                        console.log(userData);
-                        return res.status(200).json({ 
-                            message: "LOGIN SUCCESSFUL",
-                            token: token,
-                            expiresIn: 3600
                         })
                     }
                     else {

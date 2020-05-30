@@ -10,7 +10,7 @@ routerPractice.get('/practice', function(req,res,next){
     }));
 });
 
-// Post Practice Questions to the DB
+//Post Practice Questions to the DB
 routerPractice.post('/practiceQuestions', function(req,res,next){
     Practice.create(req.body).then(function(practiceQuestions){
         res.status(201).json({
@@ -19,6 +19,14 @@ routerPractice.post('/practiceQuestions', function(req,res,next){
         console.log(practiceQuestions);
     })
 })
+
+//Get Practice Questions based on ID fromm the DB
+routerPractice.get('/:id', function(req,res,next){
+    Practice.findById().then((practiceQuestion =>{
+        res.status(200).json({practiceQuestion});
+        console.log(practiceQuestion);
+    }));
+});
 
 
 module.exports = routerPractice;

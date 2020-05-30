@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../models/student');
+const College = require('../models/college');
 const bcrypt = require('bcrypt');
 
 
@@ -22,10 +23,10 @@ router.post('/studentRegister', async(req,res,next) => {
                 lastName: req.body.lastName,
                 mailId: req.body.mailId,
                 password: hashedPassword,
-                collegeId: req.body.collegeId,
-                practicedQuestions: req.body.practicedQuestions,
-                aTest: req.body.aTest,
-                cTest: req.body.cTest
+                //collegeId: req.body.collegeId,
+                //practicedQuestions: req.body.practicedQuestions,
+                //aTest: req.body.aTest,
+                //cTest: req.body.cTest
             });
        student.save(function(err,result){
            if(err){
@@ -39,6 +40,38 @@ router.post('/studentRegister', async(req,res,next) => {
                 message: "Registration successful"
                  });
             console.log(student);
+           }
+       });
+    } catch{
+        res.status(500).json({
+            message: "Registration Failed"
+        });
+    }
+});
+
+//add a new college/staff to the db
+router.post('/collegeRegister', async(req,res,next) => {
+    try{
+        const hashedPassword = await bcrypt.hash(req.body.password, 10)
+            const college = new College({
+                collegeName: req.body.collegeName,
+                staffName: req.body.staffName,
+                mailId: req.body.mailId,
+                password: hashedPassword,
+                contact: req.body.contact
+            });
+       college.save(function(err,result){
+           if(err){
+               console.log(err);
+               res.status(409).json({
+                   message: "E-Mail ID already exists. Try again with a different E-Mail ID"
+               })
+           }
+           else {
+            res.status(201).json({
+                message: "Registration successful"
+                 });
+            console.log(college);
            }
        });
     } catch{

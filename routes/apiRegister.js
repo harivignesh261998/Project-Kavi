@@ -23,10 +23,10 @@ router.post('/studentRegister', async(req,res,next) => {
                 lastName: req.body.lastName,
                 mailId: req.body.mailId,
                 password: hashedPassword,
-                //collegeId: req.body.collegeId,
-                //practicedQuestions: req.body.practicedQuestions,
-                //aTest: req.body.aTest,
-                //cTest: req.body.cTest
+                collegeId: req.body.collegeId,
+                practicedQuestions: req.body.practicedQuestions,
+                aTest: req.body.aTest,
+                cTest: req.body.cTest
             });
        student.save(function(err,result){
            if(err){
@@ -39,7 +39,7 @@ router.post('/studentRegister', async(req,res,next) => {
             res.status(201).json({
                 message: "Registration successful"
                  });
-            console.log(student);
+            console.log(result);
            }
        });
     } catch{
@@ -58,7 +58,9 @@ router.post('/collegeRegister', async(req,res,next) => {
                 staffName: req.body.staffName,
                 mailId: req.body.mailId,
                 password: hashedPassword,
-                contact: req.body.contact
+                contact: req.body.contact, 
+                testProgress: req.body.testProgress,
+                leaderBoard: req.body.leaderBoard
             });
        college.save(function(err,result){
            if(err){
@@ -71,7 +73,7 @@ router.post('/collegeRegister', async(req,res,next) => {
             res.status(201).json({
                 message: "Registration successful"
                  });
-            console.log(college);
+            console.log(result);
            }
        });
     } catch{

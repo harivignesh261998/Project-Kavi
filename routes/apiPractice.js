@@ -22,9 +22,9 @@ routerPractice.post('/practiceQuestions', function(req,res,next){
 
 //Get Practice Questions based on ID fromm the DB
 routerPractice.get('/:id', function(req,res,next){
-    Practice.findById().then((practiceQuestion =>{
-        res.status(200).json({practiceQuestion});
-        console.log(practiceQuestion);
+    Practice.findById(req.params.id).then((practiceQuestions =>{
+        res.status(200).json({practiceQuestions});
+        console.log(practiceQuestions);
     }));
 });
 

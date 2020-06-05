@@ -14,5 +14,5 @@ const PracticeSchema = new Schema({
     answer: String
 })
 
-const Practice = mongoose.model('practice', PracticeSchema);
+const Practice = mongoose.model('Practice', PracticeSchema);
 module.exports = Practice;
